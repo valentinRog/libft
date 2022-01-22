@@ -6,7 +6,7 @@
 /*   By: vrogiste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:02:25 by vrogiste          #+#    #+#             */
-/*   Updated: 2022/01/07 23:08:18 by vrogiste         ###   ########.fr       */
+/*   Updated: 2022/01/22 06:02:59 by vrogiste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ static int	count_words(char const *s, char c)
 
 	wc = 0;
 	if (*s && *s != c)
-	{
-		s++;
 		wc++;
-	}
+	if (*s)
+		s++;
 	while (*s)
 	{
 		if (*(s - 1) == c && *s != c)

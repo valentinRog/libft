@@ -6,7 +6,7 @@
 /*   By: vrogiste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 01:45:10 by vrogiste          #+#    #+#             */
-/*   Updated: 2022/01/06 15:43:05 by vrogiste         ###   ########.fr       */
+/*   Updated: 2022/02/03 16:18:03 by vrogiste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,5 @@
 void	ft_putstr_fd(char *s, int fd)
 {
 	if (s)
-	{
-		while (*s)
-			ft_putchar_fd(*(s++), fd);
-	}
+		write(fd, s, ft_strlen(s));
 }

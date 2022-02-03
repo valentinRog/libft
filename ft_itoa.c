@@ -6,7 +6,7 @@
 /*   By: vrogiste <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 00:04:11 by vrogiste          #+#    #+#             */
-/*   Updated: 2022/01/04 01:09:50 by vrogiste         ###   ########.fr       */
+/*   Updated: 2022/02/03 16:24:27 by vrogiste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,9 @@ static void	putnbr_buff(long long int n, char *buff)
 		append_char('-', buff);
 		n *= -1;
 	}
-	if (n < 10)
-		append_char(n + '0', buff);
-	else
-	{
+	if (n >= 10)
 		putnbr_buff(n / 10, buff);
-		putnbr_buff(n % 10, buff);
-	}
+	append_char(n % 10 + '0', buff);
 }
 
 char	*ft_itoa(int n)

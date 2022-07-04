@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrogiste <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vrogiste <vrogiste@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 01:27:11 by vrogiste          #+#    #+#             */
-/*   Updated: 2022/01/06 16:34:16 by vrogiste         ###   ########.fr       */
+/*   Updated: 2022/07/04 07:24:48 by vrogiste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 
 	if (!s || !f)
 		return (NULL);
-	dst = malloc(ft_strlen(s) + 1);
+	dst = ft_strdup(s);
 	if (!dst)
 		return (NULL);
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (s[i])
+	{
 		dst[i] = f(i, s[i]);
-	dst[i] = '\0';
+		i++;
+	}
 	return (dst);
 }

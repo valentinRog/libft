@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vrogiste <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: vrogiste <vrogiste@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 13:11:23 by vrogiste          #+#    #+#              #
-#    Updated: 2022/01/08 09:56:44 by vrogiste         ###   ########.fr        #
+#    Updated: 2022/07/04 06:58:41 by vrogiste         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,9 +55,9 @@ SRCSB = ft_lstnew.c\
 		ft_lstiter.c\
 		ft_lstmap.c
 
-OBJS = ${SRCS:.c=.o}
+OBJS = $(SRCS:.c=.o)
 
-OBJSB = ${SRCSB:.c=.o}
+OBJSB = $(SRCSB:.c=.o)
 
 NAME = libft.a
 
@@ -67,21 +67,21 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-.c.o: ${SRCS}
-	${CC} ${CFLAGS} -c -o $@ $<
+.c.o: $(SRCS)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-${NAME}: ${OBJS}
-	ar r ${NAME} ${OBJS}
+$(NAME): $(OBJS)
+	ar r $(NAME) $(OBJS)
 
-all: ${NAME}
+all: $(NAME)
 
 clean:
-	${RM} ${OBJS} ${OBJSB}
+	$(RM) $(OBJS) $(OBJSB)
 
 fclean: clean
-	${RM} ${NAME}
+	$(RM) $(NAME)
 
 re: fclean all
 
-bonus: ${OBJSB}
-	ar r ${NAME} ${OBJSB}
+bonus: $(OBJSB)
+	ar r $(NAME) $(OBJSB)

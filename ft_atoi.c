@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrogiste <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vrogiste <vrogiste@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 20:25:34 by vrogiste          #+#    #+#             */
-/*   Updated: 2022/01/08 09:39:25 by vrogiste         ###   ########.fr       */
+/*   Updated: 2022/07/04 08:29:42 by vrogiste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 int	ft_atoi(const char *str)
 {
-	unsigned long long int	sum;
-	int						sign;
+	uint64_t	sum;
+	int			sign;
 
 	sum = 0;
 	sign = 1;
-	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\r'
-		|| *str == '\v' || *str == '\f')
+	while (ft_strchr(" \t\n\r\v\f", *str))
 		str++;
 	if (*str == '+' || *str == '-')
 		if (*(str++) == '-')

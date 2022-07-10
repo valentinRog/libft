@@ -3,104 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vrogiste <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vrogiste <vrogiste@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:02:25 by vrogiste          #+#    #+#             */
-/*   Updated: 2022/01/22 06:02:59 by vrogiste         ###   ########.fr       */
+/*   Updated: 2022/07/10 17:19:24 by vrogiste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_words(char const *s, char c)
+static char	*start(char *s, char c)
 {
-	int	wc;
-
-	wc = 0;
-	if (*s && *s != c)
-		wc++;
-	if (*s)
-		s++;
-	while (*s)
-	{
-		if (*(s - 1) == c && *s != c)
-			wc++;
-		s++;
-	}
-	return (wc);
+	if (!*s || *s != c)
+		return (s);
+	return (start(s + 1, c));
 }
 
-static char	const	*get_word_ptr(char const *s, char c, int n)
+static char	*end(char *s, char c)
 {
-	int	wc;
+	if (!*s)
+		return (s);
+	if (*s == c)
+		return (end(s + 1, c));
+	while (*s && *s != c)
+		s++;
+	return (s);
+}
 
-	wc = 0;
-	while (*s)
+static size_t	count_words(char *s, char c)
+{
+	if (*start(s, c))
+		return (1 + count_words(end(s, c), c));
+	return (0);
+}
+
+static char	**error(char **dst)
+{
+	size_t	i;
+
+	i = 0;
+	while (dst[i])
 	{
-		while (*s == c)
-			s++;
-		if (wc == n)
-			return (s);
-		while (*s != c)
-			s++;
-		wc++;
+		free(dst[i]);
+		i++;
 	}
+	free(dst);
 	return (NULL);
 }
 
-static char	*get_word(char const *s, char c, int n)
-{
-	int			len;
-	const char	*ptr;
-	char		*dst;
-	int			i;
-
-	len = 0;
-	ptr = get_word_ptr(s, c, n);
-	while (ptr[len] && ptr[len] != c)
-		len++;
-	dst = malloc(len + 1);
-	if (!dst)
-		return (NULL);
-	i = -1;
-	while (++i < len)
-		dst[i] = ptr[i];
-	dst[i] = '\0';
-	return (dst);
-}
-
-static void	free_split(char **arr)
-{
-	int	i;
-
-	i = -1;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
-}
-
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *str, char c)
 {
 	char	**dst;
-	int		wc;
-	int		i;
+	char	**ptr;
+	char	*s;
 
-	if (!s)
-		return (NULL);
-	wc = count_words(s, c) + 1;
-	dst = malloc(wc * sizeof(char *));
+	s = (char *)str;
+	dst = malloc(sizeof(char *) * (1 + count_words(s, c)));
 	if (!dst)
 		return (NULL);
-	i = -1;
-	while (++i < wc - 1)
+	ptr = dst;
+	while (*start(s, c))
 	{
-		dst[i] = get_word(s, c, i);
-		if (!dst[i])
-		{
-			free_split(dst);
-			return (NULL);
-		}
+		*ptr = ft_substr(start(s, c), 0, end(s, c) - start(s, c));
+		if (!*ptr)
+			return (error(ptr));
+		ptr++;
+		s = end(s, c);
 	}
-	dst[i] = NULL;
+	*ptr = NULL;
 	return (dst);
 }

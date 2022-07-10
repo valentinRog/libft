@@ -6,7 +6,7 @@
 /*   By: vrogiste <vrogiste@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:02:25 by vrogiste          #+#    #+#             */
-/*   Updated: 2022/07/10 17:19:24 by vrogiste         ###   ########.fr       */
+/*   Updated: 2022/07/10 17:24:51 by vrogiste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static size_t	count_words(char *s, char c)
 
 static char	**error(char **dst)
 {
-	size_t	i;
+	char	**ptr;
 
-	i = 0;
-	while (dst[i])
+	ptr = dst;
+	while (*ptr)
 	{
-		free(dst[i]);
-		i++;
+		free(*ptr);
+		ptr++;
 	}
 	free(dst);
 	return (NULL);
@@ -66,7 +66,7 @@ char	**ft_split(char const *str, char c)
 	{
 		*ptr = ft_substr(start(s, c), 0, end(s, c) - start(s, c));
 		if (!*ptr)
-			return (error(ptr));
+			return (error(dst));
 		ptr++;
 		s = end(s, c);
 	}
